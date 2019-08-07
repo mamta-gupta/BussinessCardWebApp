@@ -1,0 +1,458 @@
+﻿@model BussinessCard.Web.Models.UserContactViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+<h2>Contact Us</h2>
+<hr />
+<form id="CreateContact" enctype='multipart/form-data'>
+    <div class="container">
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <label for="firstName">First Name</label>
+            </div>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" id="firstName" name="firstName" maxlength="150" />
+                <span class="field-validation-error hide" data-valmsg-for="firstName"> Please enter the FirstName.</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="lastName" name="lastName" maxlength="150" />
+                <span class="field-validation-error text-danger hide" data-valmsg-for="lastName"> Please enter the LastName.</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4"><label>Email Id</label></div>
+            <div class="col-sm-8"><input type="text" class="form-control" id="emailId" name="emailId" maxlength="200" />
+                <span class="field-validation-error text-danger hide" data-valmsg-for="emailId"> Please enter correct Email Id.</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4"><label>Mobile Number</label></div>
+            <div class="col-sm-8"><input type="text" class="form-control" id="mobileNumber" name="mobileNumber" maxlength="10" />
+                <span class="field-validation-error text-danger hide" data-valmsg-for="lastName"> Please enter correct Mobile Number.</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4"><label>Alternate Mobile  Number</label></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="alternateNumber" name="alternateNumber" maxlength="14" />
+                <span class="field-validation-error text-danger hide" data-valmsg-for="alternateNumber"> Please enter the correct Alternate Mobile Number.</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4"><label>Organisation Name</label></div>
+            <div class="col-sm-8">
+                <select id="organisationName" name="organisationName" class="form-control">
+                    <option value="1" selected>Global Logic</option>
+                </select>
+                <span class="field-validation-error text-danger hide" data-valmsg-for="organisationName"> Please select Organisation Name.</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4"><label>Postion Name</label></div>
+            <div class="col-sm-8">
+                <select id="positionName" name="positionName" class="form-control">
+                    <option value="0"> Select</option>
+                    <option value="1">Lead</option>
+                    <option value="2">Manager</option>
+                </select>
+                <span class="field-validation-error text-danger hide" data-valmsg-for="positionName"> Please select Position Name.</span>
+            </div>
+
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <h4 class="float-left">Address Details</h4>
+
+            @*<span title="Add new address" class="plus-icon">
+
+                <img src="~/Content/themes/base/images/plus.png" height="20px" width="20px" />
+            </span>*@
+
+        </div>
+        <div class="multi-fields-wrapper container">
+            <div class="multi-fields">
+                <div class="multi-address-field">
+                    @*<div class="container">
+                        <span title="Delete address" class="minus-icon">
+
+                            <img src="~/Content/themes/base/images/minus.png" height="20px" width="20px" />
+                        </span>
+                    </div>*@
+
+                    <div class="form-group row">
+                        <div class="col-sm-4"><label>Address Type</label></div>
+                        <div class="col-sm-8">
+                            <select id="addressType" name="addressType" class="form-control">
+                                <option value="0" selected>Select</option>
+                                <option value="6411641C-F93C-4923-8D28-21FD0F36ADD6" >Organisation</option>
+                                <option value="5D4A13FB-58C9-443F-9CD3-30E0E2F4F407">Residential</option>
+                                
+                            </select>
+                            <span class="field-validation-error text-danger hide" data-valmsg-for="addressType"> Please select the Address Type.</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-4"><label>Country</label></div>
+                        <div class="col-sm-8">
+                            <select id="country" name="country" class="form-control">
+                                @*<option value="0" >Select</option>*@
+                                <option value="102" selected>India</option>
+                                @*<option value="2" >US</option>*@
+                            </select>
+                            <span class="field-validation-error text-danger hide" data-valmsg-for="country"> Please select the Country.</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-4"><label>State</label></div>
+                        <div class="col-sm-8">
+                            <select id="state" name="state" class="form-control">
+                                <option value="0">Select</option>
+                                <option value="1" >Uttar Pradesh</option>
+                                <option value="2" >Andhra Pradesh</option>
+                                <option value="3">Arunachal Pradesh</option>
+                            </select>
+                            <span class="field-validation-error text-danger hide" data-valmsg-for="state"> Please select the State.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-sm-4"><label>Pincode</label></div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="pincode" name="pincode" maxlength="14" />
+                            <span class="field-validation-error text-danger hide" data-valmsg-for="pincode"> Please enter the correct Pincode.</span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-4"><label>Street</label></div>
+                        <div class="col-sm-8">
+                            <textarea id="street1" name="street1" maxlength="250" class="form-control"></textarea>
+                            <span class="field-validation-error text-danger hide" data-valmsg-for="street1"> Please enter the Street.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-4"><label>Street 2</label></div>
+                        <div class="col-sm-8">
+                            <textarea id="street2" name="street" maxlength="250" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <br />
+        </div>
+        </div>
+   
+    <div class="form-group row">
+        <input type="hidden"  id="contactId"/>
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" id="btnEdit">Edit</button>
+            <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
+            <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
+            <button type="reset" class="btn btn-default" id="btnReset">Reset</button>
+            <a  class="btn btn-default" href="/bussinesscard/Index">Cancel</a>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        LoadInitial();
+    });
+
+    $("#btnEdit").click(function () {
+        $("#btnSubmit").hide();
+        $("#btnUpdate").show();
+        $("#btnEdit").hide();
+        $("#btnReset").hide();
+        $("input").prop('disabled', false);
+        $("select").prop('disabled', false);
+        $("textarea").prop('disabled', false);
+    });
+
+    function LoadInitial(){
+        var actionItem =  "@ViewBag.Action";
+        if(actionItem == "Edit"){
+            $("#btnSubmit").hide();
+            $("#btnUpdate").show();
+            $("#btnEdit").hide();
+            $("#btnReset").hide();
+            $("input").prop('disabled', false);
+            $("select").prop('disabled', false);
+            $("textarea").prop('disabled', false);
+            GetUserDetailById();
+
+        } else if(actionItem == "View"){
+            $("#btnSubmit").hide();
+            $("#btnUpdate").hide();
+            $("#btnEdit").show();
+            $("#btnReset").hide();
+            $("input").prop('disabled', true);
+            $("select").prop('disabled', true);
+            $("textarea").prop('disabled', true);
+            GetUserDetailById();
+        }
+        else if (actionItem == "Create") {
+            $("#btnSubmit").show();
+            $("#btnUpdate").hide();
+            $("#btnEdit").hide();
+            $("#btnReset").show();
+        }
+    }
+
+    $("#btnEdit").click(function () {
+        $(this).hide();
+        $("#btnUpdate").show();
+    });
+
+    $("#btnUpdate").click(function () {
+        if (ValidateForm()) {
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:63812/updateUser/",
+                cache: false,
+                crossDomain: true,
+                dataType: "json",
+                //contentType: "application/json; charset=utf-8",
+                //processData: false,
+                data: {
+                    user: FromatData(),
+                    id: $("#contactId").val()
+                },
+                success: function (result) {
+                    window.location.href = "http://localhost:50439/bussinessCard/index";
+                }, //End of AJAX Success function
+            });
+        }
+    });
+
+    $("#btnSubmit").click(function () {
+        if (ValidateForm()) {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:63812/createUser/",
+                cache: false,
+                dataType: "json",
+                //contentType: "application/json; charset=utf-8",
+                //processData: false,
+                data: FromatData(),
+                success: function (result) {
+                    window.location.href = "http://localhost:50439/bussinessCard/index";
+                }, //End of AJAX Success function
+            });
+        }
+    });
+
+    function GetUserDetailById() {
+        var url = window.location.href;
+        var id = url.substring(url.lastIndexOf('/') + 1);
+        alert(id);
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:63812/getUsers/" + id,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $("#contactId").val(result.id);
+                $("#firstName").val(result.first_name);
+                $("#lastName").val(result.last_name);
+                $("#emailId").val(result.email);
+                $("#mobileNumber").val(result.mob_no);
+                $("#alternateNumber").val(result.alt_mob_no);
+                $("#organisationName").val(result.organisation_id);
+                $("#positionName").val(result.position_id);
+                if (result.address != null) {
+                    $("#addressType").val(result.address.address_type);
+                    $("#state").val(result.address.state_id);
+                    $("#pincode").val(result.address.pincode);
+                    $("#street1").val(result.address.street);
+                    $("#street2").val(result.address.street_2);
+                }
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert("error" + data.responseText);
+            } //End of AJAX error function
+
+        });
+    }
+
+    //var uniqueId = 1;
+
+    //$(".plus-icon").click(function () {
+    //    var divAddress = $(".multi-address-field:first-child").clone(true);
+    //    divAddress.insertBefore(".multi-address-field:last-child");
+
+    //    var divId = 'divAddress' + uniqueId;
+    //    divAddress.attr('id', divId);
+
+    //    $(divAddress).find('input,select').each(function () {
+    //        $(this).attr('id', $(this).attr('id') + uniqueId);
+
+    //    });
+    //    uniqueId++;
+    //    return false;
+    //});
+
+    //$(".minus-icon").click(function () {
+    //    if ($(".minus-icon").length > 1) {
+    //        $(this).parent().parent().remove();
+    //        uniqueId--;
+    //    }
+    //});
+
+    function FromatData()
+    {
+        let firstName = $("#firstName").val();
+        let lastName = $("#lastName").val();
+        let emailId = $("#emailId").val();
+        let mobileNumber = $("#mobileNumber").val();
+        let organisationId = $("#organisationName").val();
+        let positionId = $("#positionName").val();
+        let alternateMobileNumber = $("#alternateNumber").val();
+        let addressType = $("#addressType").val();
+        let country = $("#country").val();
+        let state = $("#state").val();
+        let pincode = $("#pincode").val();
+        let street1 = $("#street1").val();
+        let street2 = $("#street2").val();
+
+        // var object = new object();
+        var object = new Object();
+
+        object = {
+                'first_name': firstName,
+                'last_name': lastName,
+                'email': emailId,
+                'mob_no': mobileNumber,
+                'organisation_id': organisationId,
+                'position_id': positionId,
+                'alt_mob_no': alternateMobileNumber,
+                'address': {
+                    'address_type': addressType,
+                    'street': street1,
+                    'street_2': street2,
+                    'state_id': state,
+                    'pincode': pincode
+                }
+            };
+
+        return object;
+    }
+
+    //$('form > input').keyup(function () {
+
+    //    var hasError = false;
+    //    $('form > input').each(function () {
+    //        if ($(this).val().length <= 0 || $(this).val() == undefined) {
+    //            hasError = true;
+    //        }
+    //    });
+
+    //    if (hasError) {
+    //        $('#btnSubmit').attr('disabled', 'disabled');
+    //    } else {
+    //        $('#btnSubmit').removeAttr('disabled');
+    //    }
+    //});
+
+    function ValidateForm() {
+
+        let isValid = true;
+        let firstName = $("#firstName").val();
+        let lastName = $("#lastName").val();
+        let emailId = $("#emailId").val();
+        let mobileNumber = $("#mobileNumber").val();
+        let organisationId = $("#organisationName").val();
+        let positionId = $("#positionName").val();
+        let alternateMobileNumber = $("#alternateNumber").val();
+        let addressType = $("#addressType").val();
+        let country = $("#country").val();
+        let state = $("#state").val();
+        let pincode = $("#pincode").val();
+        let street1 = $("#street1").val();
+        let street2 = $("#street2").val();
+        var emailRegex = "^([a-zA-Z .&'-]+)$";
+        var phoneNumberRegex = "^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$";
+        var pinCodeRegex = "^\d{5}(-\d{4})?$";
+
+        if (firstName == undefined || firstName.length <= 0) {
+            $("#firstName").addClass("has-error")
+            $("#firstName").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (lastName == undefined || lastName.length <= 0) {
+            $("#lastName").addClass("has-error")
+            $("#lastName").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (emailId == undefined || emailId.length <= 0 || !(emailRegex.match(emailId))) { //|| emailId.match(mailformat))
+            $("#emailId").addClass("has-error")
+            $("#emailId").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+
+        if (mobileNumber == undefined || mobileNumber.length <= 0 || !phoneNumberRegex.match(mobileNumber)) {//|| mobileNumber.match(phoneno))
+            $("#mobileNumber").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && !phoneNumberRegex.match(alternateMobileNumber))
+            $("#alternateNumber").next("span").removeClass("hide").addClass("show");
+
+        if (organisationId == undefined || organisationId.length <= 0) {
+            $("#organisationName").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (organisationId == undefined || organisationId.length <= 0) {
+            $("#organisationName").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (addressType == undefined || addressType.length <= 0) {
+            $("#addressType").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (country == undefined || country.length <= 0) {
+            $("#country").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (state == undefined || state.length <= 0) {
+            $("#state").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (pincode == undefined || pincode.length <= 0 || !pinCodeRegex.match(pincode)) {
+            $("#pincode").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        if (street1 == undefined || street1.length <= 0) {
+            $("#street1").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+</script>
