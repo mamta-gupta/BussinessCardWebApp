@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-8">
                 <input type="text" class="form-control" id="firstName" name="firstName" maxlength="150" />
-                <span class="field-validation-error hide" data-valmsg-for="firstName"> Please enter the FirstName.</span>
+                <span class="field-validation-error text-danger hide" data-valmsg-for="firstName"> Please enter the FirstName.</span>
             </div>
         </div>
         <div class="form-group row">
@@ -42,7 +42,7 @@
         <div class="form-group row">
             <div class="col-sm-4"><label>Alternate Mobile  Number</label></div>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="alternateNumber" name="alternateNumber" maxlength="14" />
+                <input type="text" class="form-control" id="alternateNumber" name="alternateNumber" maxlength="10" />
                 <span class="field-validation-error text-danger hide" data-valmsg-for="alternateNumber"> Please enter the correct Alternate Mobile Number.</span>
             </div>
         </div>
@@ -116,8 +116,8 @@
                         <div class="col-sm-8">
                             <select id="state" name="state" class="form-control">
                                 <option value="0">Select</option>
-                                <option value="1" >Uttar Pradesh</option>
-                                <option value="2" >Andhra Pradesh</option>
+                                <option value="1">Uttar Pradesh</option>
+                                <option value="2">Andhra Pradesh</option>
                                 <option value="3">Arunachal Pradesh</option>
                             </select>
                             <span class="field-validation-error text-danger hide" data-valmsg-for="state"> Please select the State.</span>
@@ -127,7 +127,7 @@
                     <div class="form-group row">
                         <div class="col-sm-4"><label>Pincode</label></div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="pincode" name="pincode" maxlength="14" />
+                            <input type="text" class="form-control" id="pincode" name="pincode" maxlength="6" />
                             <span class="field-validation-error text-danger hide" data-valmsg-for="pincode"> Please enter the correct Pincode.</span>
                         </div>
                     </div>
@@ -408,59 +408,58 @@
         var phoneNumberRegex = "^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$";
         var pinCodeRegex = "^\d{5}(-\d{4})?$";
 
+        HideShownError();
+
         if (firstName == undefined || firstName.length <= 0) {
-            $("#firstName").addClass("has-error")
             $("#firstName").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
         if (lastName == undefined || lastName.length <= 0) {
-            $("#lastName").addClass("has-error")
             $("#lastName").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
-        if (emailId == undefined || emailId.length <= 0 || emailRegex.match(emailId) !=null) { //|| emailId.match(mailformat))
-            $("#emailId").addClass("has-error")
+        if (emailId == undefined || emailId.length <= 0 || emailId.match(emailRegex) != null) { //|| emailId.match(mailformat))
             $("#emailId").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
 
-        if (mobileNumber == undefined || mobileNumber.length <= 0 || phoneNumberRegex.match(mobileNumber) !=null) {//|| mobileNumber.match(phoneno))
+        if (mobileNumber == undefined || mobileNumber.length <= 0 ){//|| mobileNumber.match(phoneNumberRegex) != null) {
             $("#mobileNumber").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
-        if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && phoneNumberRegex.match(alternateMobileNumber) != null)
-            $("#alternateNumber").next("span").removeClass("hide").addClass("show");
+        if (positionId == undefined || positionId.length <= 0 || positionId <= 0) {
+            $("#positionName").next("span").removeClass("hide").addClass("show");
+            isValid = false;
+        }
 
-        if (organisationId == undefined || organisationId.length <= 0) {
+        //if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && alternateMobileNumber.match(phoneNumberRegex) != null)
+        //    $("#alternateNumber").next("span").removeClass("hide").addClass("show");
+
+        if (organisationId == undefined || organisationId.length <= 0 || organisationId <= 0) {
             $("#organisationName").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
-        if (organisationId == undefined || organisationId.length <= 0) {
-            $("#organisationName").next("span").removeClass("hide").addClass("show");
-            isValid = false;
-        }
-
-        if (addressType == undefined || addressType.length <= 0) {
+        if (addressType == undefined || addressType.length <= 0 || addressType <= 0 ) {
             $("#addressType").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
-        if (country == undefined || country.length <= 0) {
+        if (country == undefined || country.length <= 0 || country <= 0) {
             $("#country").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
-        if (state == undefined || state.length <= 0) {
+        if (state == undefined || state.length <= 0 || state <= 0) {
             $("#state").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
 
-        if (pincode == undefined || pincode.length <= 0 || pinCodeRegex.match(pincode) !=null) {
+        if (pincode == undefined || pincode.length <= 0 || pincode.match(pinCodeRegex) != null) {
             $("#pincode").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
@@ -471,5 +470,11 @@
         }
 
         return isValid;
+    }
+
+    function HideShownError()
+    {
+        $("input").next("span").removeClass("show").addClass("hide");
+        $("select").next("span").removeClass("show").addClass("hide");
     }
 </script>
