@@ -366,7 +366,7 @@
         }
 
 
-        if (mobileNumber == undefined || mobileNumber.length <= 0 || phoneNumberRegex.test(mobileNumber) != null) {
+        if (mobileNumber == undefined || mobileNumber.length <= 0 || !phoneNumberRegex.test(mobileNumber)) {
             $("#mobileNumber").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
@@ -376,7 +376,7 @@
             isValid = false;
         }
 
-        if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && phoneNumberRegex.test(alternateMobileNumber))
+        if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && !phoneNumberRegex.test(alternateMobileNumber))
            $("#alternateNumber").next("span").removeClass("hide").addClass("show");
 
         if (organisationId == undefined || organisationId.length <= 0 || organisationId <= 0) {
