@@ -71,23 +71,10 @@
     <div>
         <div class="container">
             <h4 class="float-left">Address Details</h4>
-
-            @*<span title="Add new address" class="plus-icon">
-
-                <img src="~/Content/themes/base/images/plus.png" height="20px" width="20px" />
-            </span>*@
-
         </div>
         <div class="multi-fields-wrapper container">
             <div class="multi-fields">
                 <div class="multi-address-field">
-                    @*<div class="container">
-                        <span title="Delete address" class="minus-icon">
-
-                            <img src="~/Content/themes/base/images/minus.png" height="20px" width="20px" />
-                        </span>
-                    </div>*@
-
                     <div class="form-group row">
                         <div class="col-sm-4"><label>Address Type</label></div>
                         <div class="col-sm-8">
@@ -223,10 +210,7 @@
                 type: "PUT",
                 url: "http://localhost:63812/updateUser?id=" + $("#contactId").val(),
                 cache: false,
-               // crossDomain: true,
                 dataType: "json",
-                //contentType: "application/json; charset=utf-8",
-                //processData: false,
                 data: FormatData(),
                 success: function (result) {
                     window.location.href = "http://localhost:50439/bussinessCard/index";
@@ -236,7 +220,7 @@
                 }, //End of AJAX failure function
                 error: function (data) {
                     alert("error" + data.responseText);
-                } 
+                }
             });
         }
     });
@@ -248,15 +232,13 @@
                 url: "http://localhost:63812/createUser/",
                 cache: false,
                 dataType: "json",
-                //contentType: "application/json; charset=utf-8",
-                //processData: false,
                 data: FormatData(),
                 success: function (result) {
                     window.location.href = "http://localhost:50439/bussinessCard/index";
-                }, //End of AJAX Success function
+                }, 
                 failure: function (data) {
                     alert(data.responseText);
-                }, //End of AJAX failure function
+                },
                 error: function (data) {
                     alert("error" + data.responseText);
                 } 
@@ -301,30 +283,6 @@
         });
     }
 
-    //var uniqueId = 1;
-
-    //$(".plus-icon").click(function () {
-    //    var divAddress = $(".multi-address-field:first-child").clone(true);
-    //    divAddress.insertBefore(".multi-address-field:last-child");
-
-    //    var divId = 'divAddress' + uniqueId;
-    //    divAddress.attr('id', divId);
-
-    //    $(divAddress).find('input,select').each(function () {
-    //        $(this).attr('id', $(this).attr('id') + uniqueId);
-
-    //    });
-    //    uniqueId++;
-    //    return false;
-    //});
-
-    //$(".minus-icon").click(function () {
-    //    if ($(".minus-icon").length > 1) {
-    //        $(this).parent().parent().remove();
-    //        uniqueId--;
-    //    }
-    //});
-
     function FormatData()
     {
         let firstName = $("#firstName").val();
@@ -344,8 +302,6 @@
         let action = "@ViewBag.Action";
         let contactId = $("#contactId").val();
         
-
-        // var object = new object();
         var object = new Object();
 
         object = {
@@ -372,22 +328,6 @@
         return object;
     }
 
-    //$('form > input').keyup(function () {
-
-    //    var hasError = false;
-    //    $('form > input').each(function () {
-    //        if ($(this).val().length <= 0 || $(this).val() == undefined) {
-    //            hasError = true;
-    //        }
-    //    });
-
-    //    if (hasError) {
-    //        $('#btnSubmit').attr('disabled', 'disabled');
-    //    } else {
-    //        $('#btnSubmit').removeAttr('disabled');
-    //    }
-    //});
-
     function ValidateForm() {
 
         let isValid = true;
@@ -405,7 +345,7 @@
         let street1 = $("#street1").val();
         let street2 = $("#street2").val();
         var emailRegex = "^([a-zA-Z .&'-]+)$";
-        var phoneNumberRegex = "^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$";
+        var phoneNumberRegex = new RegExp(/^[0-9]+$/);
         var pinCodeRegex = "^\d{5}(-\d{4})?$";
 
         HideShownError();
@@ -426,7 +366,7 @@
         }
 
 
-        if (mobileNumber == undefined || mobileNumber.length <= 0 ){//|| mobileNumber.match(phoneNumberRegex) != null) {
+        if (mobileNumber == undefined || mobileNumber.length <= 0 || phoneNumberRegex.test(mobileNumber) != null) {
             $("#mobileNumber").next("span").removeClass("hide").addClass("show");
             isValid = false;
         }
@@ -436,8 +376,8 @@
             isValid = false;
         }
 
-        //if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && alternateMobileNumber.match(phoneNumberRegex) != null)
-        //    $("#alternateNumber").next("span").removeClass("hide").addClass("show");
+        if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && phoneNumberRegex.test(alternateMobileNumber))
+           $("#alternateNumber").next("span").removeClass("hide").addClass("show");
 
         if (organisationId == undefined || organisationId.length <= 0 || organisationId <= 0) {
             $("#organisationName").next("span").removeClass("hide").addClass("show");
@@ -477,4 +417,5 @@
         $("input").next("span").removeClass("show").addClass("hide");
         $("select").next("span").removeClass("show").addClass("hide");
     }
+
 </script>

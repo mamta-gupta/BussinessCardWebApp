@@ -12,17 +12,8 @@
 <script src="~/Scripts/i18n/grid.locale-en.js"></script>
 <script src="~/Scripts/jquery.jqGrid.min.js"></script>
 <script src="~/Scripts/jquery.simplePagination.js"></script>
-@*@Styles.Render("~/Content/jqGridCss")
-
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqGrid")*@
-
 
 <div class="row">
-
-    @*<h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
     <div class="col-lg-12">
         <br />
        <p style="text-align:right;"><a class="btn btn-primary btn-default" href="/bussinesscard/Create">Add</a></p>
@@ -71,33 +62,6 @@
         });
 
         function LoadContactDetails() {
-            //var result = [
-            //    {
-            //        id: "20",
-            //        fullName: "ABC XYZ",
-            //        mobileNumber: "9876543210",
-            //        emailId: "test3@gmail.com",
-            //        organisationName: "GlobalLogic",
-            //        positionName: "Manager"
-            //    },
-            //{
-            //    id: "21",
-            //    fullName: "ABC XYZ",
-            //    mobileNumber: "9876543210",
-            //    emailId: "test2@gmail.com",
-            //    organisationName: "GlobalLogic",
-            //    positionName: "Manager"
-            //},
-            //{
-            //    id: "22",
-            //    fullName: "ABC XYZ",
-            //    mobileNumber: "9876543210",
-            //    emailId: "test1@gmail.com",
-            //    organisationName: "GlobalLogic",
-            //    positionName: "Manager"
-            //}
-            //];
-
             var count = 10
             var page = 1;
             rows = 10;
@@ -113,8 +77,6 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    debugger;
-                   // alert(JSON.stringify(data));                  
                     result.forEach(function (item, index) {
                         tableId.append("<tr><td>" + item.FirstName + " " + item.LastName + "</td><td>" + item.MobileNo + "</td><td>" + item.Email + "</td><td>" + item.OrgansationID + "</td><td>" + item.PositionID + "</td><td>" + actionButtions.replace(/\itemId/g, item.Id) + "</td></tr>")
 
@@ -136,20 +98,6 @@
 
             });
 
-            //result.forEach(function (item, index) {
-            //    tableId.append("<tr><td>" + item.fullName + "</td><td>" + item.mobileNumber + "</td><td>" + item.emailId + "</td><td>" + item.organisationName + "</td><td>" + item.positionName + "</td><td>" + actionButtions.replace(/\itemId/g, item.id) + "</td></tr>")
-            //});
-
-           
-
-        }
-
-        function View(id) {
-            alert("View" + id);
-        }
-
-        function Edit(id) {
-            alert("Edit" + id);
         }
 
         function Delete(id) {
@@ -162,7 +110,6 @@
             $.ajax({
                 type: "DELETE",
                 url: "http://localhost:63812/DeleteUsers/" + $("#itemId").val(),
-                //data: {'': $("#itemId").val()},
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 'Access-Control-Allow-Origin': '*',
@@ -182,13 +129,11 @@
         });
 
         $("#cancel").click(function () {
-            //alert("hide");
             $("#myModal").hide();
         });
 
 
         $(".close").click(function () {
-            //alert("hide");
             $("#myModal").hide();
         });
 
