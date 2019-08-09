@@ -8,7 +8,7 @@
 
 <div id="myOverlay"></div>
 <div id="loadingGIF">
-    <img src="~/Content/themes/base/images/loading.gif" />
+    <h4 class="text-center text-info">Processing....</h4>
 </div>
 
 <h2>Contact Us</h2>
@@ -17,7 +17,7 @@
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <span class="field-validation-error text-danger hide" id="errorMsg"></span>
+                <span class="field-validation-error text-danger" id="errorMsg"></span>
             </div>
         </div>
         <div class="form-group row">
@@ -183,7 +183,8 @@
     });
 
     function LoadInitial(){
-        var actionItem =  "@ViewBag.Action";
+        var actionItem = "@ViewBag.Action";
+        $("#errorMsg").hide();
         if(actionItem == "Edit"){
             $("#btnSubmit").hide();
             $("#btnUpdate").show();
@@ -219,7 +220,8 @@
 
     $("#btnUpdate").click(function () {
         if (ValidateForm()) {
-
+            window.scrollTo(0, 0);
+            //DisableScrolling();
             $("#btnUpdate").disabled = true;
 
             $.ajax({
@@ -231,14 +233,17 @@
                 success: function (result) {
                     $("#errorMsg").hide();
                     window.location.href = "http://localhost:50439/bussinessCard/index";
+                    //EnableScrolling();
                 }, //End of AJAX Success function
                 failure: function (data) {
-                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $("#errorMsg").show().text("Something went wrong, please contact to administrator.");
                     $("#btnUpdate").disabled = false;
+                    //EnableScrolling();
                 }, //End of AJAX failure function
                 error: function (data) {
-                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $("#errorMsg").show().text("Something went wrong, please contact to administrator.");
                     $("#btnUpdate").disabled = false;
+                    //EnableScrolling();
                 }
             });
         }
@@ -246,6 +251,8 @@
 
     $("#btnSubmit").click(function () {
         if (ValidateForm()) {
+            window.scrollTo(0, 0);
+            //DisableScrolling();
             $("#btnSubmit").disabled = true;
             $('#myOverlay').show();
             $('#loadingGIF').show();
@@ -261,18 +268,21 @@
                     window.location.href = "http://localhost:50439/bussinessCard/index";
                     $('#myOverlay').hide();
                     $('#loadingGIF').hide();
+                    EnableScrolling();
                 }, 
                 failure: function (data) {
-                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $("#errorMsg").show().text("Something went wrong, please contact to administrator.");
                     $('#myOverlay').hide();
                     $('#loadingGIF').hide();
                     $("#btnSubmit").disabled = false;
+                   // EnableScrolling();
                 },
                 error: function (data) {
-                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $("#errorMsg").show().text("Something went wrong, please contact to administrator.");
                     $('#myOverlay').hide();
                     $('#loadingGIF').hide();
                     $("#btnSubmit").disabled = false;
+                    //EnableScrolling();
                 } 
             });
         }
@@ -385,60 +395,75 @@
 
         if (firstName == undefined || firstName.length <= 0) {
             $("#firstName").next("span").removeClass("hide").addClass("show");
+            $("#firstName").focus();
             isValid = false;
         }
 
         if (lastName == undefined || lastName.length <= 0) {
             $("#lastName").next("span").removeClass("hide").addClass("show");
+            $("#lastName").focus();
             isValid = false;
         }
 
         if (emailId == undefined || emailId.length <= 0 || emailId.match(emailRegex) != null) { //|| emailId.match(mailformat))
             $("#emailId").next("span").removeClass("hide").addClass("show");
+            $("#emailId").focus();
             isValid = false;
         }
 
 
         if (mobileNumber == undefined || mobileNumber.length <= 0 || !phoneNumberRegex.test(mobileNumber)) {
             $("#mobileNumber").next("span").removeClass("hide").addClass("show");
+            $("#mobileNumber").focus();
             isValid = false;
         }
 
         if (positionId == undefined || positionId.length <= 0 || positionId <= 0) {
             $("#positionName").next("span").removeClass("hide").addClass("show");
+            $("#positionName").focus();
             isValid = false;
         }
 
-        if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && !phoneNumberRegex.test(alternateMobileNumber))
-           $("#alternateNumber").next("span").removeClass("hide").addClass("show");
+        if (alternateMobileNumber != undefined && alternateMobileNumber.length > 0 && !phoneNumberRegex.test(alternateMobileNumber)) {
+            $("#alternateNumber").next("span").removeClass("hide").addClass("show");
+            $("#alternateNumber").focus();
+            isValid = false;
+        }
+
 
         if (organisationId == undefined || organisationId.length <= 0 || organisationId <= 0) {
             $("#organisationName").next("span").removeClass("hide").addClass("show");
+            $("#organisationName").focus();
             isValid = false;
         }
 
         if (addressType == undefined || addressType.length <= 0 || addressType <= 0 ) {
             $("#addressType").next("span").removeClass("hide").addClass("show");
+            $("#addressType").focus();
             isValid = false;
         }
 
         if (country == undefined || country.length <= 0 || country <= 0) {
             $("#country").next("span").removeClass("hide").addClass("show");
+            $("#country").focus();
             isValid = false;
         }
 
         if (state == undefined || state.length <= 0 || state <= 0) {
             $("#state").next("span").removeClass("hide").addClass("show");
+            $("#state").focus();
             isValid = false;
         }
 
         if (pincode == undefined || pincode.length <= 0 || pincode.match(pinCodeRegex) != null) {
             $("#pincode").next("span").removeClass("hide").addClass("show");
+            $("#pincode").focus();
             isValid = false;
         }
 
         if (street1 == undefined || street1.length <= 0) {
             $("#street1").next("span").removeClass("hide").addClass("show");
+            $("#street1").focus();
             isValid = false;
         }
 
@@ -449,6 +474,26 @@
     {
         $("input").next("span").removeClass("show").addClass("hide");
         $("select").next("span").removeClass("show").addClass("hide");
+    }
+
+    function DisableScrolling() {
+        var scrollPosition = [
+            self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+            self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+        ];
+        var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+        html.data('scroll-position', scrollPosition);
+        html.data('previous-overflow', html.css('overflow'));
+        html.css('overflow', 'hidden');
+        window.scrollTo(scrollPosition[0], scrollPosition[1]);
+    }
+
+    function EnableScrolling() {
+        var html = jQuery('html');
+        var scrollPosition = html.data('scroll-position');
+        html.css('overflow', html.data('previous-overflow'));
+        window.scrollTo(scrollPosition[0], scrollPosition[1])
+
     }
 
 </script>
