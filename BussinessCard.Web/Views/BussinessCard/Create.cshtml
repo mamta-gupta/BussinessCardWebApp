@@ -5,10 +5,21 @@
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+
+<div id="myOverlay"></div>
+<div id="loadingGIF">
+    <img src="~/Content/themes/base/images/loading.gif" />
+</div>
+
 <h2>Contact Us</h2>
 <hr />
 <form id="CreateContact" enctype='multipart/form-data'>
     <div class="container">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <span class="field-validation-error text-danger hide" id="errorMsg"></span>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col-sm-4">
                 <label for="firstName">First Name</label>
@@ -153,6 +164,8 @@
     </div>
 </form>
 
+
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -206,20 +219,26 @@
 
     $("#btnUpdate").click(function () {
         if (ValidateForm()) {
+
+            $("#btnUpdate").disabled = true;
+
             $.ajax({
                 type: "PUT",
                 url: "http://localhost:63812/updateUser?id=" + $("#contactId").val(),
                 cache: false,
-                dataType: "json",
+                //dataType: "json",
                 data: FormatData(),
                 success: function (result) {
+                    $("#errorMsg").hide();
                     window.location.href = "http://localhost:50439/bussinessCard/index";
                 }, //End of AJAX Success function
                 failure: function (data) {
-                    alert(data.responseText);
+                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $("#btnUpdate").disabled = false;
                 }, //End of AJAX failure function
                 error: function (data) {
-                    alert("error" + data.responseText);
+                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $("#btnUpdate").disabled = false;
                 }
             });
         }
@@ -227,20 +246,33 @@
 
     $("#btnSubmit").click(function () {
         if (ValidateForm()) {
+            $("#btnSubmit").disabled = true;
+            $('#myOverlay').show();
+            $('#loadingGIF').show();
+
             $.ajax({
                 type: "POST",
                 url: "http://localhost:63812/createUser/",
                 cache: false,
-                dataType: "json",
+                //dataType: "json",
                 data: FormatData(),
                 success: function (result) {
+                    $("#errorMsg").hide();
                     window.location.href = "http://localhost:50439/bussinessCard/index";
+                    $('#myOverlay').hide();
+                    $('#loadingGIF').hide();
                 }, 
                 failure: function (data) {
-                    alert(data.responseText);
+                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $('#myOverlay').hide();
+                    $('#loadingGIF').hide();
+                    $("#btnSubmit").disabled = false;
                 },
                 error: function (data) {
-                    alert("error" + data.responseText);
+                    $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
+                    $('#myOverlay').hide();
+                    $('#loadingGIF').hide();
+                    $("#btnSubmit").disabled = false;
                 } 
             });
         }
@@ -256,6 +288,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
+                $("#errorMsg").hide();
                 $("#contactId").val(result.id);
                 $("#firstName").val(result.first_name);
                 $("#lastName").val(result.last_name);
@@ -274,10 +307,10 @@
             }, //End of AJAX Success function
 
             failure: function (data) {
-                alert(data.statusText);
+                $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
             }, //End of AJAX failure function
             error: function (data) {
-                alert("error" + data.statusText);
+                $("#errorMsg").show().val("Something went wrong, please contact to administrator.");
             } //End of AJAX error function
 
         });
