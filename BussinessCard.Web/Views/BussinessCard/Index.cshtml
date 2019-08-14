@@ -8,6 +8,7 @@
 <link href="~/Content/simplePagination.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+<script src="~/Scripts/jquery.simplePagination.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 
 <div class="row">
@@ -77,12 +78,13 @@
                     result.forEach(function (item, index) {
                         tableId.append("<tr><td>" + item.FirstName + " " + item.LastName + "</td><td>" + item.MobileNo + "</td><td>" + item.Email + "</td><td>" + item.OrgansationID + "</td><td>" + item.PositionID + "</td><td>" + actionButtions.replace(/\itemId/g, item.Id) + "</td></tr>")
 
-                        $("#businessCardPager").pagination({
-                            items: result.length,
-                            itemsOnPage: 3,
-                            cssStyle: 'light-theme'//,
-                            //displayedPages: 5
-                        });
+                    });
+
+                    $("#businessCardPager").pagination({
+                        items: result.length,
+                        itemsOnPage: 3,
+                        cssStyle: 'light-theme'//,
+                        //displayedPages: 5
                     });
                 }, //End of AJAX Success function  
 

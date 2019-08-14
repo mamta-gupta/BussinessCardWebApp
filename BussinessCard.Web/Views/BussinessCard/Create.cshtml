@@ -154,6 +154,7 @@
    
     <div class="form-group row">
         <input type="hidden"  id="contactId"/>
+        <input type="hidden" id="addressId" />
         <div class="col-sm-12">
             <button type="button" class="btn btn-primary" id="btnEdit">Edit</button>
             <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
@@ -226,7 +227,7 @@
 
             $.ajax({
                 type: "PUT",
-                url: "http://localhost:63812/updateUser?id=" + $("#contactId").val(),
+                url: "http://localhost:63812/updateUser",
                 cache: false,
                 //dataType: "json",
                 data: FormatData(),
@@ -254,8 +255,8 @@
             window.scrollTo(0, 0);
             //DisableScrolling();
             $("#btnSubmit").disabled = true;
-            $('#myOverlay').show();
-            $('#loadingGIF').show();
+            //$('#myOverlay').show();
+            //$('#loadingGIF').show();
 
             $.ajax({
                 type: "POST",
@@ -266,21 +267,21 @@
                 success: function (result) {
                     $("#errorMsg").hide();
                     window.location.href = "http://localhost:50439/bussinessCard/index";
-                    $('#myOverlay').hide();
-                    $('#loadingGIF').hide();
+                    //$('#myOverlay').hide();
+                    //$('#loadingGIF').hide();
                     EnableScrolling();
                 }, 
                 failure: function (data) {
                     $("#errorMsg").show().text("Something went wrong, please contact to administrator.");
-                    $('#myOverlay').hide();
-                    $('#loadingGIF').hide();
+                    //$('#myOverlay').hide();
+                    //$('#loadingGIF').hide();
                     $("#btnSubmit").disabled = false;
                    // EnableScrolling();
                 },
                 error: function (data) {
                     $("#errorMsg").show().text("Something went wrong, please contact to administrator.");
-                    $('#myOverlay').hide();
-                    $('#loadingGIF').hide();
+                    //$('#myOverlay').hide();
+                    //$('#loadingGIF').hide();
                     $("#btnSubmit").disabled = false;
                     //EnableScrolling();
                 } 
@@ -307,6 +308,7 @@
                 $("#alternateNumber").val(result.alt_mob_no);
                 $("#organisationName").val(result.organisation_id);
                 $("#positionName").val(result.position_id);
+                $("#addressId").val(result.address_id);
                 if (result.address != null) {
                     $("#addressType").val(result.address.address_type);
                     $("#state").val(result.address.state_id);
@@ -366,6 +368,7 @@
 
         if (action == "Edit") {
             object.id = contactId;
+            object.address_id = $("#addressId").val();
         }
 
         return object;
